@@ -1,0 +1,1092 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        #map {
+            width: 722px;
+            height: 483px;
+        }
+        </style>
+        <title>RCH Amérique latine 2024 RCH</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="data/BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1.js"></script>
+        <script src="data/BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2.js"></script>
+        <script src="data/COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3.js"></script>
+        <script src="data/EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4.js"></script>
+        <script src="data/CHILI_ENDROITS_A_VOIR_csv_IMPORT_5.js"></script>
+        <script src="data/MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6.js"></script>
+        <script src="data/PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7.js"></script>
+        <script src="data/URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8.js"></script>
+        <script src="data/PEROU_ENDROITS_A_VOIR_csv_IMPORT_9.js"></script>
+        <script src="data/ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10.js"></script>
+        <script src="data/Itinerary_11.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-49.298554386947295,-108.93459839271674],[13.772094964867351,-3.0584569790744944]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        function removeEmptyRowsFromPopupContent(content, feature) {
+         var tempDiv = document.createElement('div');
+         tempDiv.innerHTML = content;
+         var rows = tempDiv.querySelectorAll('tr');
+         for (var i = 0; i < rows.length; i++) {
+             var td = rows[i].querySelector('td.visible-with-data');
+             var key = td ? td.id : '';
+             if (td && td.classList.contains('visible-with-data') && feature.properties[key] == null) {
+                 rows[i].parentNode.removeChild(rows[i]);
+             }
+         }
+         return tempDiv.innerHTML;
+        }
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_HybridGoogleSatellite_0');
+        map.getPane('pane_HybridGoogleSatellite_0').style.zIndex = 400;
+        var layer_HybridGoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}', {
+            pane: 'pane_HybridGoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_HybridGoogleSatellite_0;
+        map.addLayer(layer_HybridGoogleSatellite_0);
+        function pop_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Description'] !== null ? autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1_0() {
+            return {
+                pane: 'pane_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(244,247,73,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1');
+        map.getPane('pane_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1').style.zIndex = 401;
+        map.getPane('pane_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1').style['mix-blend-mode'] = 'normal';
+        var layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1 = new L.geoJson(json_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1',
+            layerName: 'layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1',
+            pane: 'pane_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1',
+            onEachFeature: pop_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1);
+        map.addLayer(layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1);
+        function pop_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Description'] !== null ? autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2_0() {
+            return {
+                pane: 'pane_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(82,243,57,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2');
+        map.getPane('pane_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2').style.zIndex = 402;
+        map.getPane('pane_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2').style['mix-blend-mode'] = 'normal';
+        var layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2 = new L.geoJson(json_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2',
+            layerName: 'layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2',
+            pane: 'pane_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2',
+            onEachFeature: pop_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2);
+        map.addLayer(layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2);
+        function pop_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Description'] !== null ? autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3_0() {
+            return {
+                pane: 'pane_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(201,185,46,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3');
+        map.getPane('pane_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3').style.zIndex = 403;
+        map.getPane('pane_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3').style['mix-blend-mode'] = 'normal';
+        var layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3 = new L.geoJson(json_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3',
+            layerName: 'layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3',
+            pane: 'pane_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3',
+            onEachFeature: pop_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3);
+        map.addLayer(layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3);
+        function pop_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Description'] !== null ? autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4_0() {
+            return {
+                pane: 'pane_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,53,55,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4');
+        map.getPane('pane_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4').style.zIndex = 404;
+        map.getPane('pane_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4').style['mix-blend-mode'] = 'normal';
+        var layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4 = new L.geoJson(json_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4',
+            layerName: 'layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4',
+            pane: 'pane_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4',
+            onEachFeature: pop_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4);
+        map.addLayer(layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4);
+        function pop_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Description'] !== null ? autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5_0() {
+            return {
+                pane: 'pane_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,113,72,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5');
+        map.getPane('pane_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5').style.zIndex = 405;
+        map.getPane('pane_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5').style['mix-blend-mode'] = 'normal';
+        var layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5 = new L.geoJson(json_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5',
+            layerName: 'layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5',
+            pane: 'pane_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5',
+            onEachFeature: pop_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5);
+        map.addLayer(layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5);
+        function pop_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Description'] !== null ? autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6_0() {
+            return {
+                pane: 'pane_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(27,182,19,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6');
+        map.getPane('pane_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6').style.zIndex = 406;
+        map.getPane('pane_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6').style['mix-blend-mode'] = 'normal';
+        var layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6 = new L.geoJson(json_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6',
+            layerName: 'layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6',
+            pane: 'pane_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6',
+            onEachFeature: pop_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6);
+        map.addLayer(layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6);
+        function pop_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Description'] !== null ? autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7_0() {
+            return {
+                pane: 'pane_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(47,206,203,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7');
+        map.getPane('pane_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7').style.zIndex = 407;
+        map.getPane('pane_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7').style['mix-blend-mode'] = 'normal';
+        var layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7 = new L.geoJson(json_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7',
+            layerName: 'layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7',
+            pane: 'pane_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7',
+            onEachFeature: pop_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7);
+        map.addLayer(layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7);
+        function pop_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Description'] !== null ? autolinker.link(feature.properties['Description'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8_0() {
+            return {
+                pane: 'pane_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(30,134,145,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8');
+        map.getPane('pane_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8').style.zIndex = 408;
+        map.getPane('pane_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8').style['mix-blend-mode'] = 'normal';
+        var layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8 = new L.geoJson(json_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8',
+            layerName: 'layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8',
+            pane: 'pane_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8',
+            onEachFeature: pop_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8);
+        map.addLayer(layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8);
+        function pop_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Description;;'] !== null ? autolinker.link(feature.properties['Description;;'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['field_5'] !== null ? autolinker.link(feature.properties['field_5'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9_0() {
+            return {
+                pane: 'pane_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(91,77,183,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9');
+        map.getPane('pane_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9').style.zIndex = 409;
+        map.getPane('pane_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9').style['mix-blend-mode'] = 'normal';
+        var layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9 = new L.geoJson(json_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9',
+            layerName: 'layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9',
+            pane: 'pane_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9',
+            onEachFeature: pop_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9);
+        map.addLayer(layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9);
+        function pop_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site'] !== null ? autolinker.link(feature.properties['Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="Description;;"colspan="2"><strong>Description;;</strong><br />' + (feature.properties['Description;;'] !== null ? autolinker.link(feature.properties['Description;;'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['field_5'] !== null ? autolinker.link(feature.properties['field_5'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10_0() {
+            return {
+                pane: 'pane_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,55,56,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10');
+        map.getPane('pane_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10').style.zIndex = 410;
+        map.getPane('pane_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10').style['mix-blend-mode'] = 'normal';
+        var layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10 = new L.geoJson(json_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10',
+            layerName: 'layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10',
+            pane: 'pane_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10',
+            onEachFeature: pop_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10);
+        map.addLayer(layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10);
+        function pop_Itinerary_11(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+            var popup = layer.getPopup();
+            var content = popup.getContent();
+            var updatedContent = removeEmptyRowsFromPopupContent(content, feature);
+            popup.setContent(updatedContent);
+        }
+
+        function style_Itinerary_11_0() {
+            return {
+                pane: 'pane_Itinerary_11',
+                opacity: 1,
+                color: 'rgba(26,36,227,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Itinerary_11');
+        map.getPane('pane_Itinerary_11').style.zIndex = 411;
+        map.getPane('pane_Itinerary_11').style['mix-blend-mode'] = 'normal';
+        var layer_Itinerary_11 = new L.geoJson(json_Itinerary_11, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Itinerary_11',
+            layerName: 'layer_Itinerary_11',
+            pane: 'pane_Itinerary_11',
+            onEachFeature: pop_Itinerary_11,
+            style: style_Itinerary_11_0,
+        });
+        bounds_group.addLayer(layer_Itinerary_11);
+        map.addLayer(layer_Itinerary_11);
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2>RCH Amérique latine 2024 RCH</h2>';
+            };
+            title.addTo(map);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        map.on("zoomend", function(){
+
+                if (map.hasLayer(layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        });
+        setBounds();
+        var i = 0;
+        layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Site'] !== null?String('<div style="color: #ffffff; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['Site']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+                if (map.hasLayer(layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+                if (map.hasLayer(layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10)) {
+                    if (map.getZoom() <= 6 && map.getZoom() >= 19) {
+                        layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10.eachLayer(function (layer) {
+                            layer.openTooltip();
+                        });
+                    } else {
+                        layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10.eachLayer(function (layer) {
+                            layer.closeTooltip();
+                        });
+                    }
+                }
+        resetLabels([layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1,layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2,layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3,layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4,layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5,layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6,layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7,layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8,layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9,layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10]);
+        map.on("zoomend", function(){
+            resetLabels([layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1,layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2,layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3,layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4,layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5,layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6,layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7,layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8,layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9,layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1,layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2,layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3,layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4,layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5,layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6,layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7,layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8,layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9,layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_BRESIL_ENDROITS_A_VOIR_csv_IMPORT_1,layer_BOLIVIE_ENDROITS_A_VOIR_csv_IMPORT_2,layer_COLOMBIE_ENDROITS_A_VOIR_csv_IMPORT_3,layer_EQUATEUR_ENDROITS_A_VOIR_csv_IMPORT_4,layer_CHILI_ENDROITS_A_VOIR_csv_IMPORT_5,layer_MEXIQUE_ET_CARAIBES_ENDROITS_A_VOIR_csv_IMPORT_6,layer_PARAGUAY_ENDROITS_A_VOIR_csv_IMPORT_7,layer_URUGUAY_ENDROITS_A_VOIR_csv_IMPORT_8,layer_PEROU_ENDROITS_A_VOIR_csv_IMPORT_9,layer_ARGENTINE_ENDROITS_A_VOIR_csv_IMPORT_10]);
+        });
+        </script>
+    </body>
+</html>
